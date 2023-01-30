@@ -1,0 +1,65 @@
+[
+    {
+        "id": "618c61eeb8e1064bdfe106f2",
+        "name": "New Projects",
+        "closed": false,
+        "idBoard": "618c61eeb8e1064bdfe106f0",
+        "pos": 8192,
+        "subscribed": false,
+        "softLimit": null
+    },
+    {
+        "id": "618c61eeb8e1064bdfe106f1",
+        "name": "Revisions",
+        "closed": false,
+        "idBoard": "618c61eeb8e1064bdfe106f0",
+        "pos": 16384,
+        "subscribed": false,
+        "softLimit": null
+    },
+    {
+        "id": "618c74a5bfc00b4352441b3d",
+        "name": "Running Projects",
+        "closed": false,
+        "idBoard": "618c61eeb8e1064bdfe106f0",
+        "pos": 49152,
+        "subscribed": false,
+        "softLimit": null
+    },
+    {
+        "id": "618c626627e4048319fb571f",
+        "name": "Client Pending",
+        "closed": false,
+        "idBoard": "618c61eeb8e1064bdfe106f0",
+        "pos": 81920,
+        "subscribed": false,
+        "softLimit": null
+    },
+    {
+        "id": "631780250d075f013cd1b0f3",
+        "name": "Support Pending",
+        "closed": false,
+        "idBoard": "618c61eeb8e1064bdfe106f0",
+        "pos": 131072,
+        "subscribed": false,
+        "softLimit": null
+    },
+    {
+        "id": "618c61eeb8e1064bdfe106f3",
+        "name": "Completed / Live",
+        "closed": false,
+        "idBoard": "618c61eeb8e1064bdfe106f0",
+        "pos": 180224,
+        "subscribed": false,
+        "softLimit": null
+    },
+    {
+        "id": "618d83ade90b7e3c3f41278a",
+        "name": "Cancel / Disputed Project",
+        "closed": false,
+        "idBoard": "618c61eeb8e1064bdfe106f0",
+        "pos": 245760,
+        "subscribed": false,
+        "softLimit": null
+    }
+]
