@@ -2,15 +2,15 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 error_reporting(0);
 if (isset($_SESSION['login'])) {
+    $name = $this->session->get_userdata('name');
+    $user_id = $name['user_id'];
+    $current_day = mdate('%d');
+    $cokkies_name = get_cookie('name');
 } else {
     echo 'Session Expired';
-    redirect('LoginController');
+    redirect('Login');
 }
 include "inc/header.php";
-$name = $this->session->get_userdata('name');
-$user_id = $name['user_id'];
-$current_day = mdate('%d');
-$cokkies_name = get_cookie('name');
 ?>
 <?php include "inc/nav.php"; ?>
 
@@ -85,9 +85,9 @@ $cokkies_name = get_cookie('name');
                                                 <?php echo (($invoice_type) ? $invoice_type : '-') ?>
                                             </td>
                                             <td>
-                                                <a href="/index.php/AdminController/convertpdf?invoice_id=<?php echo $id;?>" data-invID="<?php echo $id; ?>" id="view_inv_<?php echo $id; ?>"class="btn btn-primary view_inv_btn">Download Invoice</a>
+                                                <a href="/index.php/Admin/convertpdf?invoice_id=<?php echo $id;?>" data-invID="<?php echo $id; ?>" id="view_inv_<?php echo $id; ?>"class="btn btn-primary view_inv_btn">Download Invoice</a>
                                                 
-                                                <a href="<?php echo site_url('AdminController/delete_invoice?id=' . $id) ?>"
+                                                <a href="<?php echo site_url('Admin/delete_invoice?id=' . $id) ?>"
                                                     id="delete_inv" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>

@@ -1,8 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-// if (isset($_SESSION['login'])) {
-//   redirect('LoginController/login_func');
-// }
+if (isset($_SESSION['login'])) {
+  redirect('Admin');
+} else {
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +72,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <div class="tab-panels">
                 <section id="marzen" class="tab-panel">
                   <div class="login-form">
-                    <?php echo form_open('LoginController/login_func'); ?>
+                    <?php echo form_open('Login/login_func'); ?>
 
                     <div class="form-group">
                       <label for="exampleInputEmail1" class="text-dark">Name</label>
@@ -88,7 +89,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </section>
                 <section id="rauchbier" class="tab-panel">
                   <div class="register-form" id="register_form">
-                    <?php echo form_open('LoginController/register_func'); ?>
+                    <?php echo form_open('Login/register_func'); ?>
 
                     <div class="form-group">
                       <label for="exampleInputEmail1" class="text-dark">Email</label>
@@ -124,7 +125,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     $('.register-form form button').attr('disabled', true);
     // alert('ok');
     $.ajax({
-      url: '/index.php/LoginController/register_func',
+      url: '/index.php/Login/register_func',
       type: 'POST',
       data: $('.register-form form').serialize(),
       success: function(response) {

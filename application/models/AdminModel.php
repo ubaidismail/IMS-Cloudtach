@@ -26,6 +26,7 @@ class AdminModel extends CI_Model
         $total,
         $sub_total,
         $tax_amount,
+        $shipping_cost,
         $total_amount,
         $date_now
     ) {
@@ -44,6 +45,7 @@ class AdminModel extends CI_Model
             'total' => $total2,
             'sub_total' => $sub_total,
             'tax_amount' => $tax_amount,
+            'shipping_cost' => $shipping_cost,
             'total_amount' => $total_amount,
             'invoice_type' => $invoice_type,
             'date' => $date_now,
@@ -146,11 +148,6 @@ class AdminModel extends CI_Model
     }
 
     function get_data_downloading_invoice($invoice_id){
-        // $this->db->where('id', $invoice_id);
-        // $this->db->from('ct_invoice');
-        // $this->db->join('ct_invoice_logo', 'ct_invoice.user_id = ct_invoice_logo.user_id' , 'cross');
-        // $result = $this->db->get('ct_invoice_logo')->result();
-
         $this->db->where('ct_invoice.id', $invoice_id);
         $this->db->from('ct_invoice_logo');
         $this->db->join('ct_invoice', 'ct_invoice_logo.user_id = ct_invoice.user_id' , 'cross');

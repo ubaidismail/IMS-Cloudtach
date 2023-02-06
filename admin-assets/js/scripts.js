@@ -25,6 +25,36 @@ window.addEventListener('DOMContentLoaded', event => {
 });
 
 $(document).ready(function () {
+    //capitalize code
+    $.fn.capitalize = function() {
+        return this.each(function() {
+            var words = $(this).text().split(' ');
+            var newWords = [];
+            for (var i = 0; i < words.length; i++) {
+                newWords.push(words[i].charAt(0).toUpperCase() + words[i].slice(1));
+            }
+            $(this).text(newWords.join(' '));
+        });
+    }
+    //capitalize code
+
+    var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
+     $('.nav a').each(function() {
+         var url = path.split('/'),
+         last_part = url[url.length-1],
+         optimize_txt = last_part.replace(/_/g, ' ');
+         if(optimize_txt == 'index'){
+            optimize_txt = 'Dashboard';
+            $('title').html(optimize_txt).capitalize();
+         }else{
+             $('title').html(optimize_txt).capitalize();
+
+         }
+         
+      if (this.href === path) {
+       $(this).addClass('active');
+      }
+     });
 
     $('.save_inv_ring').hide();
     //
@@ -32,10 +62,19 @@ $(document).ready(function () {
         var a = $('.sb-nav-fixed').hasClass('sb-sidenav-toggled');
         if (a == true) {
             $('.sb-sidenav-footer').hide();
+            $('.nav a').removeClass('active');
             $('#layoutSidenav_nav').addClass('fixed-lf-nav-icon');
             $('.sb-nav-link-icon').show();
             $('.sb-nav-link-icon').removeAttr('hidden');
+            $('svg.svg-inline--fa.fa-caret-down.fa-w-10').hide();
         } else {
+            var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
+            $('.nav a').each(function() {
+                if (this.href === path) {
+                    $(this).addClass('active');
+                }
+            });
+            $('svg.svg-inline--fa.fa-caret-down.fa-w-10').show();
             $('.sb-sidenav-footer').show();
             $('#layoutSidenav_nav').removeClass('fixed-lf-nav-icon');
             $('.sb-nav-link-icon').hide();
@@ -155,7 +194,7 @@ $(document).ready(function () {
         if(get_inputs.length != '' && get_inputs_table != ''){
             $('.save_inv_ring').show();
             $.ajax({
-                url: '/index.php/AdminController/save_invoice',
+                url: '/index.php/Admin/save_invoice',
                 type: 'POST',
                 data: $('#invoice_form').serialize(),
                 success: function (response) {
@@ -212,7 +251,7 @@ $(document).ready(function () {
         $('#company_logo').prop('disabled', true);
         $.ajax({
             type: "POST",
-            url: "/index.php/AdminController/save_invoice_company_logo",
+            url: "/index.php/Admin/save_invoice_company_logo",
             data: formData,
             processData: false,
             contentType: false,
@@ -235,7 +274,7 @@ $(document).ready(function () {
         // $(this).prop('disabled' , true);
         $.ajax({
             type: "POST",
-            url: "/index.php/AdminController/remove_invoice_company_logo",
+            url: "/index.php/Admin/remove_invoice_company_logo",
             data: { 'user_id': user_id, 'img': img },
             success: function (response) {
                 jQuery('#data-dynamic-div').html(response);
@@ -249,7 +288,7 @@ $(document).ready(function () {
                     $('#company_logo').prop('disabled', true);
                     $.ajax({
                         type: "POST",
-                        url: "/index.php/AdminController/save_invoice_company_logo",
+                        url: "/index.php/Admin/save_invoice_company_logo",
                         data: formData,
                         processData: false,
                         contentType: false,
@@ -271,6 +310,23 @@ $(document).ready(function () {
         });
     })
 
+    $('.add-contact-form').hide();
+    $('#add_contact').click(function(){
+        $('.add-contact-form').slideDown('slow' , function(){
+            $('.add-contact-form').css('top' , '25%');
+        });
+        $('.add-contact-form').attr('hidden' , false);
+        $('.add-contact-form').removeAttr('hidden');
+    })
+    $('.clost-contact-add-form a').click(function(){
+      
+        $('.add-contact-form').slideUp('slow' , function(){
+                $('.add-contact-form').css('top' , '-9999px');
+         });
+        $('.add-contact-form').hide();
+        $('.add-contact-form').attr('hidden' , true);
+        
+    });
 
 }) 
 

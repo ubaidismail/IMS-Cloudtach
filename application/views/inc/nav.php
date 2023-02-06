@@ -27,7 +27,7 @@
                 <li>
                     <hr class="dropdown-divider" />
                 </li>
-                <li><a href="<?php echo site_url('LoginController/logout_cp') ?>" class="dropdown-item" href="#!">Logout</a></li>
+                <li><a href="<?php echo site_url('Login/logout_cp') ?>" class="dropdown-item" href="#!">Logout</a></li>
             </ul>
         </li>
     </ul>

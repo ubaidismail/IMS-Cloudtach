@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 include "inc/header.php";
+if (isset($_SESSION['login'])) {
+} else {
+    echo 'somethig went wrong';
+    redirect('Login');
+}
 ?>
 
 <body>
@@ -13,7 +18,7 @@ include "inc/header.php";
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Employee List</h1>
                     <div class="add-emp">
-                        <a href="<?php echo site_url("AdminController/add_employes"); ?>">Add Employee <i class="fa fa-plus" aria-hidden="true"></i></a>
+                        <a href="<?php echo site_url("Admin/add_employes"); ?>">Add Employee <i class="fa fa-plus" aria-hidden="true"></i></a>
                     </div>
                     <table class="display nowrap simple-table" style="width:100%">
                         <thead>

@@ -2,17 +2,17 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 error_reporting(0);
 if (isset($_SESSION['login'])) {
+    $name = $this->session->get_userdata('name');
+    $checkin_id = $_SESSION['checkin_id'];
+    print_r($checkin_id);
+    $user_id = $name['user_id'];
+    $current_day = mdate('%d');
+    $cokkies_name = get_cookie('name');
 } else {
     echo 'somethig went wrong';
-    redirect('LoginController');
+    redirect('Login');
 }
 include "inc/header.php";
-$name = $this->session->get_userdata('name');
-$checkin_id = $_SESSION['checkin_id'];
-print_r($checkin_id);
-$user_id = $name['user_id'];
-$current_day = mdate('%d');
-$cokkies_name = get_cookie('name');
 ?>
 
 <?php include "inc/nav.php"; ?>

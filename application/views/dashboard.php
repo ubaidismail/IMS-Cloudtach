@@ -1,9 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 if (isset($_SESSION['login'])) {
+
 } else {
     // echo 'somethig went wrong';
-    redirect('LoginController/login_view');
+    redirect('Login/login_view');
 }
 
 

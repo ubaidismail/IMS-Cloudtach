@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('Your are not allowed to access this asset');
 define('ABSPATH', __FILE__);
-class AdminController extends CI_Controller
+class Admin extends CI_Controller
 {
 
     function index()
@@ -10,7 +10,6 @@ class AdminController extends CI_Controller
         $this->load->model('AdminModel');
         $data = $this->AdminModel->get_user_data();
         $this->load->view('dashboard', ['data' => $data]);
-
     }
     public function get_current_user_id()
     {
@@ -38,14 +37,19 @@ class AdminController extends CI_Controller
 
     function invoice()
     {
-        $user_id = $_SESSION['user_id'];
-        $this->load->model('AdminModel');
-        $data = $this->AdminModel->get_img_for_inv_logo($user_id);
-        if ($data) {
-            $this->load->view('invoice', ['data' => $data]);
-        } else {
-
-            $this->load->view('invoice');
+        $user_id_string = $_SESSION['user_id'];
+        $user_id = isset($_SESSION['user_id']);
+        if($user_id){
+            $this->load->model('AdminModel');
+            $data = $this->AdminModel->get_img_for_inv_logo($user_id_string);
+            if ($data) {
+                $this->load->view('invoice', ['data' => $data]);
+            } else {
+    
+                $this->load->view('invoice');
+            }
+        }else{
+            $this->index();
         }
 
     }
@@ -67,11 +71,12 @@ class AdminController extends CI_Controller
         $total = $this->input->post('total');
         $sub_total = $this->input->post('sub_total');
         $tax_amount = $this->input->post('tax_amount');
+        $shipping_cost = $this->input->post('shipping_cost');
         $total_amount = $this->input->post('total_amount');
         $date_now = $this->input->post('date_now');
 
         $this->load->model('AdminModel');
-        $data = $this->AdminModel->add_invoice_data($get_current_user_id, $to, $address, $rece_phone, $invoice_type, $project, $qty, $price, $total, $sub_total, $tax_amount, $total_amount, $date_now);
+        $data = $this->AdminModel->add_invoice_data($get_current_user_id, $to, $address, $rece_phone, $invoice_type, $project, $qty, $price, $total, $sub_total, $tax_amount, $shipping_cost , $total_amount, $date_now);
     }
     function past_invoices()
     {
@@ -88,7 +93,7 @@ class AdminController extends CI_Controller
                 $this->load->view('past_invoices', ['data' => $data]);
             }
         }else{
-            redirect('LoginController');
+            redirect('Login');
             echo 'Session Expired';
         }
         // $user_id = $_SESSION['user_id'];
@@ -175,99 +180,103 @@ class AdminController extends CI_Controller
             
             $html_content = '';
             $html_content .= '<div class="pdf-download" >
-                <style>
-                .inv.fromimg img {
-                    width: 200px;
-                    display: block;
-                    margin: 0 auto;
-                }
+            <style>
+            .inv.fromimg img {
+                width: 200px;
+                display: block;
+                margin: 0 auto;
+            }
 
-                table {
-                    border: 1px solid #cccccc57;
-                    background-color: white;
-                }
+            table {
+                border: 1px solid #cccccc57;
+                background-color: white;
+            }
 
-                table thead,
-                table td,
-                table tr,
-                table tfoot,
-                table th {
-                    border: 0 !important;
-                }
+            table thead,
+            table td,
+            table tr,
+            table tfoot,
+            table th {
+                border: 0 !important;
+            }
 
-                thead,
-                tfoot {
-                    background-color: #f8f9fa;
-                    color: #000;
-                }
+            thead,
+            tfoot {
+                background-color: #f8f9fa;
+                color: #000;
+            }
 
-                div#inner-pdf table thead,
-                div#inner-pdf td,
-                div#inner-pdf tr,
-                div#inner-pdf tfoot,
-                div#inner-pdf th,
-                table#tab_logic_total {
-                    border: 1px solid #dee2e6 !important;
-                }
+            div#inner-pdf table thead,
+            div#inner-pdf td,
+            div#inner-pdf tr,
+            div#inner-pdf tfoot,
+            div#inner-pdf th,
+            table#tab_logic_total {
+                border: 1px solid #dee2e6 !important;
+            }
 
-                .flex-inv-top {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
+            .flex-inv-top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
 
-                .invoice-title h2 {
-                    font-size: 22px;
-                    font-family: "Work Sans", sans-serif;
-                }
+            .invoice-title h2 {
+                font-size: 22px;
+                font-family: "Work Sans", sans-serif;
+            }
 
-                address {
-                    font-family: "Work Sans", sans-serif;
-                }
+            .panel.panel-default  , .inv-id , th , thead, address , .inv_paid , h3 , .comp_name{
+                font-family: "Work Sans", sans-serif;
+            }
 
-                .panel.panel-default h3 strong {
-                    font-weight: 400;
-                    font-size: 23px;
-                }
+            .panel.panel-default h3 strong {
+                font-weight: 400;
+                font-size: 23px;
+            }
 
-                .panel.panel-default {
-                    font-family: "Work Sans", sans-serif;
-                }
+            .invoice-title {
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 4px;
+                margin-bottom: 30px;
+            }
 
-                .invoice-title {
-                    border-bottom: 1px solid #ccc;
-                    padding-bottom: 4px;
-                    margin-bottom: 30px;
-                }
+            div#inner-pdf table thead {
+                background-color: #f8f9fa;
+                color: #000;
+                font-weight: 300;
+            }
 
-                div#inner-pdf table thead {
-                    background-color: #f8f9fa;
-                    color: #000;
-                    font-weight: 300;
-                    font-family: "Work Sans";
-                }
+            th {
+                font-family: "Work Sans";
+                font-weight: 400 !important;
+            }
 
-                th {
-                    font-family: "Work Sans";
-                    font-weight: 400 !important;
-                }
+            strong.inv_delte-sms {
+                position: absolute;
+                right: 30px;
+                top: 18px;
+            }
 
-                strong.inv_delte-sms {
-                    position: absolute;
-                    right: 30px;
-                    top: 18px;
-                }
-
-                .inv_paid {
-                    position: absolute;
-                    right: 0;
-                    background: #0964e4;
-                    color: #fff;
-                    padding: 10px 70px;
-                    transform: rotateZ(35deg);
-                    margin-top: 7px;
-                }
-                </style>
+            .inv_paid h4{
+                position: absolute;
+                top: -30px;
+                right: -30px;
+                background: #009328;
+                color: #fff;
+                padding: 10px 70px;
+                transform: none !important;
+                margin-top: 7px;
+                border-radius:50px;
+            }
+            
+            p.comp_name {
+                text-align: right;
+                font-weight: 500;
+                font-size: 20px;
+                font-family: "Work Sans", sans-serif;
+            }
+            </style>
         <div id="inner-pdf">
         <div class="flex-inv-top">
         <div class="inv fromimg">
@@ -279,23 +288,21 @@ class AdminController extends CI_Controller
             if ($d->invoice_type == 'simple') {
                 $html_content .= '';
             } else if ($d->invoice_type == 'paid') {
-                $html_content .= '<div class="inv_paid">Paid</div>';
+                $html_content .= '<<div class="inv_paid"><h4>Paid</h4></div>';
             } else if ($d->invoice_type == 'pending') {
-                $html_content .= '<div class="inv_paid">Pending</div>';
+                $html_content .= '<div class="inv_paid"><h4>Pending</h4></div>';
             } else if ($d->invoice_type == 'upfront') {
-                $html_content .= '<div class="inv_paid">Upfront</div>';
+                $html_content .= '<div class="inv_paid"><h4>Upfront</h4></div>';
             }
             ;
             $html_content .= '<div class="row">
             <div class="col-xs-12">
                 <div class="invoice-title">
-                    <h2>Invoice for'
-                . $d->company_name . '
-                    </h2>
-                    <div class="inv-id">Invoice ID:
-                        ' . $d->id . '
+                    <div class="inv-id">
+                        <h3> INV#:00'.$d->id . '
+                        </h3>
+                        <p>Invoice Date: ' . $d->date . '</p>
                     </div>
-                    <h3 class="pull-right"></h3>
                 </div>
                 <div class="row align-items-center">
                     <div class="col-lg-12">
@@ -366,6 +373,14 @@ class AdminController extends CI_Controller
                                     <tr>
                                         <td class="no-line"></td>
                                         <td class="no-line"></td>
+                                        <td class="no-line text-end"><strong>Shipping Cost</strong></td>
+                                        <td class="no-line text-right">
+                                            ' . $d->shipping_cost . '
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
                                         <td class="no-line text-end"><strong>Tax
                                                 amount</strong></td>
                                         <td class="no-line text-right">
@@ -399,11 +414,15 @@ class AdminController extends CI_Controller
             $this->pdf->loadHtml($html_content);
             // $this->pdf->setPaper('A4', 'landscape');
             $this->pdf->render();
-            $this->pdf->stream("invoice_d.pdf", array("Attachment" => 1)); // if 0 the file will open in another tab
+            $this->pdf->stream("invoice-".$d->id.".pdf", array("Attachment" => 1)); // if 0 the file will open in another tab
         }
         // }
     }
 
+    //payment remdiern
 
+    function payment_reminder(){
+        $this->load->view('payment-reminder');
+    }
 
 }

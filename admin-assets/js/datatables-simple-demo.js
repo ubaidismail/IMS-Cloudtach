@@ -53,6 +53,7 @@ function calc() {
         if (html != "") {
             var qty = $(this).find(".qty").val();
             var price = $(this).find(".price").val();
+            
             $(this)
                 .find(".total")
                 .val(qty * price);
@@ -72,3 +73,18 @@ function calc_total() {
     $("#tax_amount").val(tax_sum.toFixed(2));
     $("#total_amount").val((tax_sum + total).toFixed(2));
 }
+
+$('#shipping_cost').change(function(){
+    var shipping_cost = parseFloat($(this).val());
+    var with_sub_total = parseFloat($('input#sub_total').val());
+    var add_total = shipping_cost + with_sub_total;
+    $('input#sub_total').val(add_total.toFixed(2));
+    $('#total_amount').val(add_total.toFixed(2));
+});
+$('#tax_amount').change(function(){
+    var gst_value = parseFloat($(this).val());
+    var add_to_sub_total = parseFloat($('input#sub_total').val());
+    var add_total = add_to_sub_total +  gst_value;
+    $('input#sub_total').val(add_total.toFixed(2));
+    $('#total_amount').val(add_total.toFixed(2));
+});

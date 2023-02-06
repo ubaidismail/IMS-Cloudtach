@@ -1,23 +1,27 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 error_reporting(0);
+
 if (isset($_SESSION['login'])) {
+    $name = $this->session->get_userdata('name');
+    $checkin_id = $_SESSION['checkin_id'];
+    $user_id = $name['user_id'];
+    $current_day = mdate('%d');
+    $cokkies_name = get_cookie('name');
 } else {
     echo 'somethig went wrong';
-    redirect('LoginController');
+    redirect('Login');
 }
 include "inc/header.php";
-$name = $this->session->get_userdata('name');
-$checkin_id = $_SESSION['checkin_id'];
-$user_id = $name['user_id'];
-$current_day = mdate('%d');
-$cokkies_name = get_cookie('name');
+
 ?>
 <?php include "inc/nav.php"; ?>
 <div id="layoutSidenav">
     <?php include "inc/sidenav.php";
     $invno = 'CT' . rand(0, 999);
-    ?>
+    
+   ?>
+    
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
@@ -136,17 +140,17 @@ $cokkies_name = get_cookie('name');
                                             <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly /></td>
                                         </tr>
                                         <tr>
-                                            <th class="text-center">CGST</th>
+                                            <th class="text-center">Shipping Cost</th>
                                             <td class="text-center">
                                                 <div class="input-group mb-2 mb-sm-0">
-                                                    <input type="number" class="form-control" id="tax1" placeholder="0">
+                                                    <input type="number" class="form-control" name="shipping_cost" id="shipping_cost" placeholder="0">
                                                     <div class="input-group-addon"></div>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th class="text-center">CGST Tax Amount</th>
-                                            <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly /></td>
+                                            <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control"  /></td>
                                         </tr>
                                         <tr>
                                             <th class="text-center">Grand Total</th>

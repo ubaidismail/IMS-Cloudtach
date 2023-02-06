@@ -4,7 +4,7 @@
             <div class="nav">
                 <!-- <div class="sb-sidenav-menu-heading">Core</div> -->
                 <a class="nav-link" href="index">
-                    Dashboard
+                    <span>Dashboard</span>
                     <div class="sb-nav-link-icon" hidden><img src="<?php echo base_url('admin-assets/img/dashboard.png'); ?>" alt=""></div>
                 </a>
 
@@ -13,7 +13,7 @@
                 ?>
                     <li class="nav-item dropdown" id="access_db_tab">
                         <a href="https://phpmyadmin.wp-arena.com/index.php" target="_blank" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Access Database
+                            <span>Access Database</span>
                             <div class="sb-nav-link-icon" hidden><i class="fas fa-database"></i></div>
                         </a>
                         <div class="dropdown-menu">
@@ -22,26 +22,32 @@
                     </li>
                 <?php }
                 ?>
-                <a class="nav-link" href="<?php echo site_url("AdminController/add_reminder"); ?>">
-                    Add Reminders
+                <a class="nav-link" href="<?php echo site_url("Admin/add_reminder"); ?>">
+                    <span>Add Tasks</span>
                     <div class="sb-nav-link-icon" hidden><img src="<?php echo base_url('admin-assets/img/bell.png'); ?>" alt=""></div>
+                </a>
+                <a class="nav-link" href="<?php echo site_url("Admin/payment_reminder"); ?>">
+                    <span>Payment Remidner</span>
+                    <div class="sb-nav-link-icon" hidden>
+                        <img src="<?php echo base_url('admin-assets/img/payday.png'); ?>" alt="">
+                    </div>
                 </a>
                 <!-- <li class="nav-item"> -->
                 <a class="nav-link" data-bs-toggle="collapse" href="#collapse_nav_users" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                     Manage Invoice
-                    <i class='fas fa-caret-down'></i>
+                    <i class='fas fa-angle-down'></i>
                     <div class="sb-nav-link-icon" hidden><img src="<?php echo base_url('admin-assets/img/invoice-ico.png'); ?>" alt=""></div>
                 </a>
                 <div id="collapse_nav_users" class="collapse multi-collapse nav_users" style="">
-                    <a href="<?php echo site_url("AdminController/invoice"); ?>">
+                    <a href="<?php echo site_url("Admin/invoice"); ?>">
                         Generate Invoice
                     </a>
-                    <a href="<?php echo site_url("AdminController/past_invoices"); ?>">
+                    <a href="<?php echo site_url("Admin/past_invoices"); ?>">
                         View Invoice
                     </a>
                 </div>
-                <a class="nav-link" href="<?php echo site_url("AdminController/all_employes"); ?>">
-                    Members
+                <a class="nav-link" href="<?php echo site_url("Admin/all_employes"); ?>">
+                    <span>Members</span>
                     <div class="sb-nav-link-icon" hidden><img src="<?php echo base_url('admin-assets/img/add-user.png'); ?>" alt=""></div>
                 </a>
 

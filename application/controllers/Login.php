@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('Your are not allowed to access this asset');
 
-class LoginController extends CI_Controller
+class Login extends CI_Controller
 {
     function index()
     {
@@ -86,7 +86,7 @@ class LoginController extends CI_Controller
     {
         $logout = session_destroy();
         if ($logout) {
-            redirect('LoginController');
+            redirect('Login');
         } else {
             echo 'something went wrong';
         }
